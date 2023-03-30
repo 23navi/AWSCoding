@@ -1,5 +1,5 @@
 {
-  "name": "aws-dev",
+  "name": "v2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1333.0"
+    "aws-sdk": "^2.1346.0"
   }
 }
