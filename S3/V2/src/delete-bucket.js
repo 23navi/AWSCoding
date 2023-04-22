@@ -3,8 +3,8 @@ const s3= new AWS.S3();
 
 
 const params= {
-    Bucket:"my-code-bucket-navi23"
-    // Bucket:"elasticbeanstalk-us-east-1-274080732168"
+    // Bucket:"my-code-bucket-navi23"
+    Bucket:"elasticbeanstalk-ap-south-1-274080732168"
 }
 
 //Will throw error if the bucket is not empty or we don't have permission to delete it (eg Elastic beanstalk buckets.)
