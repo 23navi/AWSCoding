@@ -7,7 +7,8 @@ const s3Client = new S3Client();
 const createBucket = async () => {
   try {
     const bucketParams = {
-      Bucket: "navi-test-bucket-2",
+      Bucket: "navi-test-bucket-1",
+      ACL: "private",
     };
     const data = await s3Client.send(new CreateBucketCommand(bucketParams));
     console.log("Successfully created bucket.");
