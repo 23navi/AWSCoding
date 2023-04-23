@@ -16,7 +16,7 @@ const readOnlyUserPolicy = {
     ]
 }
 
-const bucketName="navi-test-bucket-1"
+const bucketName="navi-test-bucket-3"
 
 const bucketResourceId= "arn:aws:s3:::"+bucketName+"/*";
 readOnlyUserPolicy.Statement[0].Resource[0]=bucketResourceId;
