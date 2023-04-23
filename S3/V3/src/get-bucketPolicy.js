@@ -19,4 +19,10 @@ const getBucketPolicy = async (bucketName) => {
     }
 }
 
-getBucketPolicy("navi-test-bucket-1");
+// getBucketPolicy("navi-test-bucket-1").then(data => console.log(data));
+
+
+const test= async ()=>{
+    console.log(await getBucketPolicy("navi-test-bucket-1"))
+}
+test();
