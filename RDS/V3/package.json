@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@aws-sdk/client-rds": "^3.321.1"
+  }
+}
