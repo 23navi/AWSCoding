@@ -1,0 +1,2 @@
+1) aws lambda get-function --function-name myLambdaFunction =>  Gives config info for that function 
+2) aws lambda list-functions => give list of all the fuctions avaliable
