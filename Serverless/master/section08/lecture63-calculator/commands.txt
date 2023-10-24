@@ -69,3 +69,7 @@ aws lambda invoke `
 Multiline char 
     for windows = `
     for mac = \
+
+
+
+    aws lambda invoke --function-name 1-sec-hello-world --cli-binary-format raw-in-base64-out --payload file://event.json response.json
