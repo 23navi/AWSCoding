@@ -1,0 +1,5 @@
+1) aws lambda get-function --function-name myLambdaFunction =>  Gives config info for that function 
+2) aws lambda list-functions => give list of all the fuctions avaliable
+
+3) Syncronous invocation 
+aws lambda invoke --function-name ServerlessProject1-ChatAPIProxy --cli-binary-format raw-in-base64-out --payload '{ "key":"value" }' response.json
