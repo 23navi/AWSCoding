@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: "Section 1 activity template - AWS CloudFormation Step by Step: Beginner to Intermediate"
+Description: 'Section 1 activity template - AWS CloudFormation Step by Step: Beginner to Intermediate'
 Resources:
   SampleTable:
     Type: AWS::DynamoDB::Table
@@ -14,7 +14,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
-
   SampleRDSInstance:
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Delete
@@ -25,6 +24,30 @@ Resources:
       MultiAZ: false
       MasterUsername: dbadmin
       MasterUserPassword: mystrongpassword
-      AllocatedStorage: "8"
+      AllocatedStorage: '8'
       StorageType: gp2
       BackupRetentionPeriod: 0
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub
+        - ${ResourceName} From Stack ${AWS::StackName}
+        - ResourceName: Api
+      StageName: Prod
+      DefinitionBody:
+        openapi: '3.0'
+        info: {}
+        paths:
+          /:
+            get:
+              responses: {}
+      EndpointConfiguration: REGIONAL
+      TracingEnabled: true
+Transform: AWS::Serverless-2016-10-31
+Metadata:
+  AWS::Composer::Groups:
+    Group:
+      Label: Group
+      Members:
+        - SampleRDSInstance
+        - Api

@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Simple YAML to create EC2 instances
+Resources:
+  Ec2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-02a2af70a66af6dfb
+      InstanceType: t2.micro
+      Tags:
+        - Key: abc
+          Value: t2-micro-test
