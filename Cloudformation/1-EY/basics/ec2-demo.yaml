@@ -10,3 +10,4 @@ Resources:
       Tags:
         - Key: abc
           Value: t2-micro-test
+
