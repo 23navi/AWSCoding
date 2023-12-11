@@ -1,1 +1,1 @@
-npm i @aws-sdk/client-dynamodb 
+npm i @aws-sdk/client-dynamodb @aws-sdk/util-dynamodb 
