@@ -14,10 +14,7 @@ export const handler = async (event) => {
       if (event.pathParameters !== null) {
         return getProductById(event.pathParameters.id);
       } else {
-        return {
-          statusCode: 200,
-          body: JSON.stringify(process.env),
-        };
+        return getAllProducts();
       }
     case "POST":
       return createProduct(JSON.parse(event.body));
