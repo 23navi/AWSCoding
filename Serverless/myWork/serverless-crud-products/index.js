@@ -1,4 +1,4 @@
-import { ddbClient } from "./ddbClient";
+import { ddbClient } from "./ddbClient.js";
 export const handler = async (event) => {
   console.log("Request:", JSON.stringify(event, undefined, 2));
   // TODO implement
@@ -24,3 +24,5 @@ export const handler = async (event) => {
   };
   return response;
 };
+
+handler();
