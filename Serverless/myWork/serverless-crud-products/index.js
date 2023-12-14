@@ -1,4 +1,10 @@
 import { ddbClient } from "./ddbClient.js";
+import {
+  ScanCommand,
+  GetItemCommand,
+  PutItemCommand,
+  DeleteItemCommand,
+} from "@aws-sdk/client-dynamodb";
 export const handler = async (event) => {
   console.log("Request:", JSON.stringify(event, undefined, 2));
   // TODO implement
@@ -27,7 +33,7 @@ export const handler = async (event) => {
   }
 };
 
-function getProductById(productId) {
+async function getProductById(productId) {
   // Find product from dynamodb
   return {
     statusCode: 200,
@@ -35,15 +41,19 @@ function getProductById(productId) {
   };
 }
 
-function getAllProducts() {
+async function getAllProducts() {
   // get all products from dynamodb
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE_NAME,
+  };
+  const products = await ddbClient.send(new ScanCommand(params));
   return {
     statusCode: 200,
-    body: JSON.stringify("All products"),
+    body: JSON.stringify(products),
   };
 }
 
-function createProduct(body) {
+async function createProduct(body) {
   // create product in dynamodb
   return {
     statusCode: 200,
@@ -51,7 +61,7 @@ function createProduct(body) {
   };
 }
 
-function updateProductById(id, body) {
+async function updateProductById(id, body) {
   // update product in dynamodb
   return {
     statusCode: 200,
@@ -59,7 +69,7 @@ function updateProductById(id, body) {
   };
 }
 
-function deleteProductById(id) {
+async function deleteProductById(id) {
   // delete product in dynamodb
   return {
     statusCode: 200,
