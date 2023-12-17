@@ -12,7 +12,18 @@ export const handler = async (event) => {
   switch (event.httpMethod) {
     case "GET":
       if (event.pathParameters !== null) {
-        return getProductById(event.pathParameters.id);
+        try {
+          const res = await getProductById(event.pathParameters.id);
+          return {
+            statusCode: 200,
+            body: JSON.stringify(res),
+          };
+        } catch (e) {
+          return {
+            statusCode: 200,
+            body: JSON.stringify(e),
+          };
+        }
       } else {
         return getAllProducts();
       }
@@ -32,10 +43,18 @@ export const handler = async (event) => {
 
 async function getProductById(productId) {
   // Find product from dynamodb
-  return {
-    statusCode: 200,
-    body: JSON.stringify(productId),
+  const params = {
+    Key: {
+      id: { S: productId },
+    },
+    TableName: process.env.DYNAMODB_TABLE_NAME,
   };
+  try {
+    const product = await ddbClient.send(new GetItemCommand(params));
+    return product;
+  } catch (err) {
+    throw new Error("product not found");
+  }
 }
 
 async function getAllProducts() {
