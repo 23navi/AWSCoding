@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Creating resources an custom VPC
+Resources:
+  Ec2Instance:
+    Type: "AWS::EC2::Instance"
+    DependsOn:
+      - MyIGW
+      - MyVPC
+      - MySubnet
+      - MYyRoute
+    Properties:
+      ImageId: ami-02a2af70a66af6dfb
+      InstanceType: t2.micro
+      SubnetId: !Ref MySubnet
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      Tags:
+        - Key: abc
+          Value: t2-micro-test
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: icmp
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: icmp
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.10.0.0/16
+      InstanceTenancy: default
+
+  MySubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-south-1a
+      CidrBlock: 10.10.0.0/24
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref MyVPC
+
+  MyPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+
+  MyIGW:
+    Type: AWS::EC2::InternetGateway
+    Properties: {}
+
+  IGWConnection:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref MyIGW
+      VpcId: !Ref MyVPC
+
+  SubnetAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref MyPublicRouteTable
+      SubnetId: !Ref MySubnet
+
+  MYyRoute:
+    Type: AWS::EC2::Route
+    DependsOn: IGWConnection
+    Properties:
+      RouteTableId: !Ref MyPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: IGWConnection
