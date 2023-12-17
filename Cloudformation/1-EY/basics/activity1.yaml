@@ -69,6 +69,7 @@ Resources:
 
   IGWConnection:
     Type: AWS::EC2::VPCGatewayAttachment
+    DependsOn: MyIGW
     Properties:
       InternetGatewayId: !Ref MyIGW
       VpcId: !Ref MyVPC
@@ -86,4 +87,4 @@ Resources:
       RouteTableId: !Ref MyPublicRouteTable
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId:
-        Ref: IGWConnection
+        Ref: MyIGW
