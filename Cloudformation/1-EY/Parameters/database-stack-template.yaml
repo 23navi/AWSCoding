@@ -1,12 +1,10 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: "2010-09-09"
 Description: Sample database stack for the Parameters section
 Resources:
-  # Note: Please replace the value of VpcId property
-  # with the VPC id of your default VPC
   DbSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      VpcId: vpc-56725930
+      VpcId: vpc-051da6bba7830955b
       GroupDescription: "Database instances security group"
       SecurityGroupIngress:
         - CidrIp: 0.0.0.0/0
@@ -14,16 +12,14 @@ Resources:
           ToPort: 3306
           IpProtocol: tcp
 
-  # Note: Please replace the value of SubnetIds property
-  # with the subnet ids of the subnets in your default VPC!
   DbSubnetGroup:
     Type: "AWS::RDS::DBSubnetGroup"
     Properties:
       DBSubnetGroupDescription: Subnets to launch db instances into
       SubnetIds:
-        - subnet-2dd77177
-        - subnet-5550241d
-        - subnet-e0ff9a86
+        - subnet-04deef4edca825c07
+        - subnet-0fe8b8e0937bfd21a
+        - subnet-049305cc90efbb3fc
 
   DatabaseInstance:
     Type: AWS::RDS::DBInstance
