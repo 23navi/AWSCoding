@@ -1,4 +1,4 @@
-import { SendMessageCommand } from "@aws-sdk/client-sqs";
+import { DeleteMessageCommand } from "@aws-sdk/client-sqs";
 import { sqsClient } from "./sqsClient.js";
 
 const params = {
