@@ -1,22 +1,52 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import * as s3 from "aws-cdk-lib/aws-s3";
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { Bucket, CfnBucket } from "aws-cdk-lib/aws-s3";
+
+class L3BucketConst extends Construct {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id);
+
+    // S3 bucket L2 construct
+    const bucket = new Bucket(this, "ThisIsLocalName", {
+      bucketName: "yooooooooooooo",
+      lifecycleRules: [
+        {
+          expiration: cdk.Duration.days(2),
+        },
+      ],
+    });
+    console.log({ bucketName: bucket.bucketName });
+  }
+}
 
 export class InfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    // S3 bucket L2 construct
+    const bucket = new Bucket(this, "this-is-not-bucket-name", {
+      lifecycleRules: [
+        {
+          expiration: cdk.Duration.days(2),
+        },
+      ],
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'InfraQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
+    console.log(bucket.bucketName);
+
+    // // S3 bucket L1 costruct
+    // new CfnBucket(this, "XXXXXXXXXXXXXXXXXXXXXXXXXX", {
+    //   bucketName: "XXXXXXXXXXXXXXXXXXXXXXX",
+    //   lifecycleConfiguration: {
+    //     rules: [
+    //       {
+    //         expirationInDays: 2,
+    //         status: "Enabled",
+    //       },
+    //     ],
+    //   },
     // });
 
-    // S3 bucket
-    const bucket = new s3.Bucket(this, "this-is-not-bucket-name", {
-      bucketName: "mybucketisuniqueforsure",
-    });
+    new L3BucketConst(this, "thenwhatisthis");
   }
 }
