@@ -2,6 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { Bucket, CfnBucket } from "aws-cdk-lib/aws-s3";
 
+// Custom L3 construct using L2 construct
 class L3BucketConst extends Construct {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id);
