@@ -6,3 +6,4 @@ export class InfraStack extends cdk.Stack {
     super(scope, id, props);
   }
 }
+
