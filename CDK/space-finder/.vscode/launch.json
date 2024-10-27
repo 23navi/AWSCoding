@@ -7,14 +7,18 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
+            "name": "Debug local file",
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
             ],
-            "program": "${workspaceFolder}/CDK/space-finder/src/infra/Launcher.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            "args": [
+                "${relativeFile}"
+            ],
+            "env": {
+                "AWS_REGION": "eu-west-1",
+                "TABLE_NAME": "SpaceTable-020fda1d7783"
+            }
         }
     ]
 }
