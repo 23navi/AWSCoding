@@ -1,0 +1,27 @@
+
+
+GET https://1ertg407z7.execute-api.eu-west-1.amazonaws.com/prod/spaces
+###
+
+POST https://1ertg407z7.execute-api.eu-west-1.amazonaws.com/prod/spaces
+content-type: application/json
+
+ {
+    "location": "Dublin",
+    "name": "Best location"
+ }
+###
+
+GET https://1ertg407z7.execute-api.eu-west-1.amazonaws.com/prod/spaces?id=fbe76aea-5aff-434e-85f6-e8f5fc1647ec
+###
+
+DELETE https://1ertg407z7.execute-api.eu-west-1.amazonaws.com/prod/spaces?id=fbe76aea-5aff-434e-85f6-e8f5fc1647ec
+###
+
+PUT https://1ertg407z7.execute-api.eu-west-1.amazonaws.com/prod/spaces?id=fbe76aea-5aff-434e-85f6-e8f5fc1647ec
+content-type: application/json
+
+ {
+    "name": "Best location 5"
+ }
+###
